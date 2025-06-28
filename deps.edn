@@ -1,3 +1,12 @@
 {:deps
  {io.github.nextjournal/clerk {:mvn/version "0.17.1102"}
-  org.clojure/clojure {:mvn/version "1.12.1"}}}
+  org.clojure/clojure {:mvn/version "1.12.1"}}
+
+ :aliases
+ {:dev {:extra-paths ["dev" "notebooks"]
+        :main-opts ["-e" "(require 'user) (user/start-dev) @(promise)"]}
+  :build {:deps {io.github.babashka/neil {:mvn/version "0.2.63"}}
+          :main-opts ["-m" "babashka.neil"]}
+  :static {:main-opts ["-m" "nextjournal.clerk" "static-build"
+                       "--paths" "notebooks"
+                       "--out-path" "public"]}}}
